@@ -98,8 +98,12 @@ public class ProductController {
 //		product.setProductImage1(imageUrl);
 	    
 	 // Handle file upload
+
+	 	// This gets the absolute path of the folder to upload the image. It will be used to construct the full path of the image
+		// ex: /Users/a.khayat/Documents/JAVA/Spring/FabriKo-wade_combined/server/src/main/webapp/images/product/
 	    String uploadDir = servletContext.getRealPath("/images/product/");
 	    System.out.println("upload Dir " + uploadDir);
+		
 	    String fileName = productImage1.getOriginalFilename();
 	    String serverFileName = uploadDir + File.separator + fileName;
 	    System.out.println("Full Path " + serverFileName);
@@ -113,6 +117,7 @@ public class ProductController {
 	    File serverFile = new File(serverFileName);
 	    productImage1.transferTo(serverFile);
 	    
+		//This gets base URL. It will be used to construct the URL of the image. It can be eaither localhost for the back end or IP address for AWS deployment
 	    String baseUrl = request.getRequestURL().toString();
 	    System.out.println("Base URL" + baseUrl);
 	    String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length()) + request.getContextPath() + "/images/product/" + fileName;
